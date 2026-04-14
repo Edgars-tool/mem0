@@ -6,7 +6,9 @@ import { describe, it, expect } from "vitest";
 import {
   extractAgentId,
   effectiveUserId,
+  effectiveAgentId,
   agentUserId,
+  resolveAgentId,
   resolveUserId,
   isNonInteractiveTrigger,
   isSubagentSession,
@@ -33,12 +35,12 @@ describe("extractAgentId", () => {
     ).toBe("subagent-3b85177f-69e0-412d-8ecd-fbe542f362ce");
   });
 
-  it("returns undefined for the main agent session (agent:main:main)", () => {
-    expect(extractAgentId("agent:main:main")).toBeUndefined();
+  it("maps the main agent session to haodai", () => {
+    expect(extractAgentId("agent:main:main")).toBe("haodai");
   });
 
-  it("returns undefined for the 'main' sentinel", () => {
-    expect(extractAgentId("agent:main:abc-123")).toBeUndefined();
+  it("maps other main agent sessions to haodai", () => {
+    expect(extractAgentId("agent:main:abc-123")).toBe("haodai");
   });
 
   it("returns undefined for undefined/null/empty input", () => {
@@ -85,13 +87,11 @@ describe("effectiveUserId", () => {
     expect(effectiveUserId(base, undefined)).toBe("alice");
   });
 
-  it("returns namespaced userId for agent session keys", () => {
-    expect(effectiveUserId(base, "agent:researcher:uuid-1")).toBe(
-      "alice:agent:researcher",
-    );
+  it("keeps the base userId for agent session keys", () => {
+    expect(effectiveUserId(base, "agent:researcher:uuid-1")).toBe("alice");
   });
 
-  it("falls back to base for 'main' agent sessions", () => {
+  it("keeps the base for 'main' agent sessions", () => {
     expect(effectiveUserId(base, "agent:main:uuid-2")).toBe("alice");
   });
 
@@ -104,12 +104,13 @@ describe("effectiveUserId", () => {
 // agentUserId
 // ---------------------------------------------------------------------------
 describe("agentUserId", () => {
-  it("produces the correct namespaced format", () => {
-    expect(agentUserId("alice", "researcher")).toBe("alice:agent:researcher");
+  it("always returns the canonical shared agent id", () => {
+    expect(agentUserId("alice", "researcher")).toBe("agent");
+    expect(agentUserId("alice", "haodai")).toBe("agent");
   });
 
-  it("handles empty agentId (caller is responsible for validation)", () => {
-    expect(agentUserId("alice", "")).toBe("alice:agent:");
+  it("ignores empty agentId and still returns the canonical id", () => {
+    expect(agentUserId("alice", "")).toBe("agent");
   });
 });
 
@@ -119,31 +120,19 @@ describe("agentUserId", () => {
 describe("resolveUserId", () => {
   const base = "alice";
 
-  it("prefers explicit agentId over everything else", () => {
-    expect(
-      resolveUserId(
-        base,
-        { agentId: "researcher", userId: "bob" },
-        "agent:beta:uuid",
-      ),
-    ).toBe("alice:agent:researcher");
-  });
-
-  it("uses explicit userId when agentId is absent", () => {
+  it("uses explicit userId when provided", () => {
     expect(resolveUserId(base, { userId: "bob" }, "agent:beta:uuid")).toBe(
       "bob",
-    );
-  });
-
-  it("derives from session key when both agentId and userId are absent", () => {
-    expect(resolveUserId(base, {}, "agent:gamma:uuid")).toBe(
-      "alice:agent:gamma",
     );
   });
 
   it("falls back to base userId when nothing else is provided", () => {
     expect(resolveUserId(base, {})).toBe("alice");
     expect(resolveUserId(base, {}, undefined)).toBe("alice");
+  });
+
+  it("ignores agentId for user identity", () => {
+    expect(resolveUserId(base, { agentId: "researcher" })).toBe("alice");
   });
 
   it("ignores empty-string agentId (falsy)", () => {
@@ -155,23 +144,55 @@ describe("resolveUserId", () => {
   });
 });
 
+describe("effectiveAgentId", () => {
+  it("returns the canonical shared agent id for named agents", () => {
+    expect(effectiveAgentId("agent:researcher:uuid-1")).toBe("agent");
+  });
+
+  it("returns the canonical shared agent id for main sessions", () => {
+    expect(effectiveAgentId("agent:main:main")).toBe("agent");
+  });
+});
+
+describe("resolveAgentId", () => {
+  it("normalizes explicit agentId to the canonical shared id", () => {
+    expect(resolveAgentId({ agentId: "codex" }, "agent:edge:uuid")).toBe(
+      "agent",
+    );
+  });
+
+  it("falls back to the canonical shared agent id", () => {
+    expect(resolveAgentId({}, "agent:edge:uuid")).toBe("agent");
+  });
+
+  it("also returns the canonical shared id for main sessions", () => {
+    expect(resolveAgentId({}, "agent:main:main")).toBe("agent");
+  });
+});
+
 // ---------------------------------------------------------------------------
 // Cross-agent isolation sanity checks
 // ---------------------------------------------------------------------------
 describe("multi-agent isolation", () => {
   const base = "user-42";
 
-  it("different agents get different namespaces", () => {
+  it("different agents keep the same user id", () => {
     const alphaId = effectiveUserId(base, "agent:alpha:uuid-a");
     const betaId = effectiveUserId(base, "agent:beta:uuid-b");
-    expect(alphaId).not.toBe(betaId);
-    expect(alphaId).toBe("user-42:agent:alpha");
-    expect(betaId).toBe("user-42:agent:beta");
+    expect(alphaId).toBe(betaId);
+    expect(alphaId).toBe("user-42");
   });
 
-  it("same agent across sessions yields the same namespace", () => {
-    const s1 = effectiveUserId(base, "agent:alpha:session-1");
-    const s2 = effectiveUserId(base, "agent:alpha:session-2");
+  it("different agents collapse into the same shared agent id", () => {
+    const alphaId = effectiveAgentId("agent:alpha:uuid-a");
+    const betaId = effectiveAgentId("agent:beta:uuid-b");
+    expect(alphaId).toBe(betaId);
+    expect(alphaId).toBe("agent");
+  });
+
+  it("same agent across sessions yields the same agent id", () => {
+    const s1 = effectiveAgentId("agent:alpha:session-1");
+    const s2 = effectiveAgentId("agent:alpha:session-2");
     expect(s1).toBe(s2);
   });
 

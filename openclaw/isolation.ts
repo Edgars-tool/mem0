@@ -1,9 +1,15 @@
 /**
- * Per-agent memory isolation helpers.
+ * Canonical memory identity helpers.
  *
- * Multi-agent setups write/read from separate userId namespaces
- * automatically via sessionKey routing.
+ * Edgar's setup uses a single shared memory identity:
+ * - user_id is always the stable Edgar identity
+ * - agent_id is always the generic shared "agent" identity
+ *
+ * Session keys are still parsed where useful for diagnostics, but they no
+ * longer influence which Mem0 agent namespace is used for storage or recall.
  */
+
+export const CANONICAL_AGENT_ID = "agent";
 
 // ============================================================================
 // Trigger filtering — skip non-interactive sessions
@@ -56,8 +62,8 @@ export function isSubagentSession(sessionKey: string | undefined): boolean {
  *   - Subagent:    "agent:main:subagent:<uuid>"
  *   - Named agent: "agent:<agentId>:<session>"
  *
- * Returns the subagent UUID for subagent sessions, the agentId for
- * non-"main" named agents, or undefined for the main agent session.
+ * Returns the subagent UUID for subagent sessions, or the parsed agent ID for
+ * named agents. This is a parser only; it does not determine Mem0 namespace.
  */
 export function extractAgentId(
   sessionKey: string | undefined,
@@ -71,37 +77,63 @@ export function extractAgentId(
   // Check for named agent pattern: "agent:<agentId>:<session>"
   const match = sessionKey.match(/^agent:([^:]+):/);
   const agentId = match?.[1];
-  // "main" is the primary session — fall back to configured userId
-  if (!agentId || agentId === "main") return undefined;
+  if (!agentId) return undefined;
+  if (agentId === "main") return "haodai";
   return agentId;
 }
 
 /**
- * Derive the effective user_id from a session key, namespacing per-agent.
- * Falls back to baseUserId when the session is not agent-scoped.
+ * Derive the effective user_id from a session key.
+ * User identity stays stable across all agents.
  */
 export function effectiveUserId(
   baseUserId: string,
   sessionKey?: string,
 ): string {
-  const agentId = extractAgentId(sessionKey);
-  return agentId ? `${baseUserId}:agent:${agentId}` : baseUserId;
+  void sessionKey;
+  return baseUserId;
 }
 
-/** Build a user_id for an explicit agentId (e.g. from tool params). */
+/** Preserve legacy export name, but always return the canonical shared agent id. */
 export function agentUserId(baseUserId: string, agentId: string): string {
-  return `${baseUserId}:agent:${agentId}`;
+  void baseUserId;
+  void agentId;
+  return CANONICAL_AGENT_ID;
 }
 
 /**
- * Resolve user_id with priority: explicit agentId > explicit userId > session-derived > configured.
+ * Resolve user_id with priority: explicit userId > configured.
  */
 export function resolveUserId(
   baseUserId: string,
   opts: { agentId?: string; userId?: string },
   currentSessionId?: string,
 ): string {
-  if (opts.agentId) return agentUserId(baseUserId, opts.agentId);
+  void opts.agentId;
+  void currentSessionId;
   if (opts.userId) return opts.userId;
-  return effectiveUserId(baseUserId, currentSessionId);
+  return baseUserId;
+}
+
+/**
+ * Derive agent_id from the current session.
+ * Edgar's memory policy uses one shared agent namespace for all tools.
+ */
+export function effectiveAgentId(
+  sessionKey?: string,
+): string | undefined {
+  void sessionKey;
+  return CANONICAL_AGENT_ID;
+}
+
+/**
+ * Resolve agent_id to the canonical shared value, ignoring per-tool names.
+ */
+export function resolveAgentId(
+  opts: { agentId?: string },
+  currentSessionId?: string,
+): string | undefined {
+  void opts.agentId;
+  void currentSessionId;
+  return CANONICAL_AGENT_ID;
 }

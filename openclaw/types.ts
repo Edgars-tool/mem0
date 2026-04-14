@@ -37,6 +37,7 @@ export type Mem0Config = {
 
 export interface AddOptions {
   user_id: string;
+  agent_id?: string;
   run_id?: string;
   custom_instructions?: string;
   custom_categories?: Array<Record<string, string>>;
@@ -53,6 +54,7 @@ export interface AddOptions {
 
 export interface SearchOptions {
   user_id: string;
+  agent_id?: string;
   run_id?: string;
   top_k?: number;
   threshold?: number;
@@ -120,6 +122,7 @@ export interface SkillsConfig {
 
 export interface ListOptions {
   user_id: string;
+  agent_id?: string;
   run_id?: string;
   page_size?: number;
   source?: string;
@@ -129,6 +132,7 @@ export interface MemoryItem {
   id: string;
   memory: string;
   user_id?: string;
+  agent_id?: string;
   score?: number;
   categories?: string[];
   metadata?: Record<string, unknown>;
@@ -156,7 +160,7 @@ export interface Mem0Provider {
   getAll(options: ListOptions): Promise<MemoryItem[]>;
   update(memoryId: string, text: string): Promise<void>;
   delete(memoryId: string): Promise<void>;
-  deleteAll(userId: string): Promise<void>;
+  deleteAll(userId: string, agentId?: string): Promise<void>;
   history(
     memoryId: string,
   ): Promise<

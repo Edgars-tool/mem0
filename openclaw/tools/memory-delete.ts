@@ -3,7 +3,7 @@ import { isSubagentSession } from "../isolation.ts";
 import type { ToolDeps } from "./index.ts";
 
 export function createMemoryDeleteTool(deps: ToolDeps) {
-  const { api, provider, resolveUserId, getCurrentSessionId, buildSearchOptions } = deps;
+  const { api, provider, resolveUserId, resolveAgentId, getCurrentSessionId, buildSearchOptions } = deps;
 
   return {
     name: "memory_delete",
@@ -38,7 +38,11 @@ export function createMemoryDeleteTool(deps: ToolDeps) {
 
         if (query) {
           const uid = resolveUserId({ agentId, userId });
-          const results = await provider.search(query, buildSearchOptions(uid, 5));
+          const resolvedAgentId = resolveAgentId({ agentId });
+          const searchOpts = resolvedAgentId
+            ? buildSearchOptions(uid, 5, undefined, undefined, resolvedAgentId)
+            : buildSearchOptions(uid, 5);
+          const results = await provider.search(query, searchOpts);
           if (!results || results.length === 0) {
             return { content: [{ type: "text", text: "No matching memories found." }], details: { found: 0 } };
           }
@@ -60,10 +64,15 @@ export function createMemoryDeleteTool(deps: ToolDeps) {
             return { content: [{ type: "text", text: "Bulk deletion requires confirm: true." }], details: { error: "confirmation_required" } };
           }
           const uid = resolveUserId({ agentId, userId });
-          await provider.deleteAll(uid);
+          const resolvedAgentId = resolveAgentId({ agentId });
+          if (resolvedAgentId) {
+            await provider.deleteAll(uid, resolvedAgentId);
+          } else {
+            await provider.deleteAll(uid);
+          }
           deps.captureToolEvent("memory_delete", { success: true, latency_ms: Date.now() - start, delete_mode: "all" });
-          api.logger.info(`openclaw-mem0: deleted all memories for user ${uid}`);
-          return { content: [{ type: "text", text: `All memories deleted for user "${uid}".` }], details: { action: "deleted_all", user_id: uid } };
+          api.logger.info(`openclaw-mem0: deleted all memories for user ${uid}${resolvedAgentId ? ` agent ${resolvedAgentId}` : ""}`);
+          return { content: [{ type: "text", text: `All memories deleted for user "${uid}"${resolvedAgentId ? ` (agent "${resolvedAgentId}")` : ""}.` }], details: { action: "deleted_all", user_id: uid, agent_id: resolvedAgentId } };
         }
 
         return { content: [{ type: "text", text: "Provide memoryId, query, or all:true." }], details: { error: "missing_param" } };

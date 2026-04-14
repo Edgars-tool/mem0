@@ -245,6 +245,7 @@ export async function recall(
   userId: string,
   config: SkillsConfig = {},
   sessionId?: string,
+  agentId?: string,
 ): Promise<RecallResult> {
   const recallConfig = config.recall ?? {};
   const tokenBudget = recallConfig.tokenBudget ?? DEFAULT_TOKEN_BUDGET;
@@ -256,6 +257,7 @@ export async function recall(
   // Build search options with enhanced features
   const searchOpts: SearchOptions = {
     user_id: userId,
+    ...(agentId && { agent_id: agentId }),
     top_k: maxMemories * 2, // Over-fetch for ranking
     threshold,
     keyword_search: recallConfig.keywordSearch !== false, // Default on

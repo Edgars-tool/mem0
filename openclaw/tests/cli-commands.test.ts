@@ -174,7 +174,7 @@ function setup() {
   const backend = createMockBackend();
   const cfg = createMockCfg();
   const effectiveUserId = vi.fn().mockReturnValue("testuser");
-  const agentUserId = vi.fn((id: string) => `testuser:agent:${id}`);
+  const agentUserId = vi.fn((_id: string) => "agent");
   const buildSearchOptions = vi.fn().mockReturnValue({
     user_id: "testuser",
     top_k: 5,
@@ -538,11 +538,14 @@ describe("registerCliCommands", () => {
 
       await addCmd._action!("agent fact", { agentId: "researcher" });
 
-      expect(agentUserId).toHaveBeenCalledWith("researcher");
-      expect(provider.add).toHaveBeenCalledWith(
-        expect.anything(),
-        expect.objectContaining({ user_id: "testuser:agent:researcher" }),
-      );
+    expect(agentUserId).toHaveBeenCalledWith("researcher");
+    expect(provider.add).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        user_id: "testuser",
+        agent_id: "agent",
+      }),
+    );
     });
 
     it("uses --user-id override when provided", async () => {
@@ -725,13 +728,14 @@ describe("registerCliCommands", () => {
 
       await listCmd._action!({ topK: "50", agentId: "builder" });
 
-      expect(agentUserId).toHaveBeenCalledWith("builder");
-      expect(provider.getAll).toHaveBeenCalledWith(
-        expect.objectContaining({
-          user_id: "testuser:agent:builder",
-          source: "OPENCLAW",
-        }),
-      );
+    expect(agentUserId).toHaveBeenCalledWith("builder");
+    expect(provider.getAll).toHaveBeenCalledWith(
+      expect.objectContaining({
+        user_id: "testuser",
+        agent_id: "agent",
+        source: "OPENCLAW",
+      }),
+    );
     });
 
     it("handles list errors gracefully", async () => {
@@ -841,7 +845,10 @@ describe("registerCliCommands", () => {
       });
 
       expect(agentUserId).toHaveBeenCalledWith("researcher");
-      expect(provider.deleteAll).toHaveBeenCalledWith("testuser:agent:researcher");
+      expect(provider.deleteAll).toHaveBeenCalledWith(
+        "testuser",
+        "agent",
+      );
     });
 
     it("handles delete errors gracefully", async () => {

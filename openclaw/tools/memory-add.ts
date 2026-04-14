@@ -5,7 +5,7 @@ import { resolveCategories, ttlToExpirationDate } from "../skill-loader.ts";
 import type { ToolDeps } from "./index.ts";
 
 export function createMemoryAddTool(deps: ToolDeps) {
-  const { api, cfg, provider, resolveUserId, getCurrentSessionId, buildAddOptions, buildSearchOptions, skillsActive } = deps;
+  const { api, cfg, provider, resolveUserId, resolveAgentId, getCurrentSessionId, buildAddOptions, buildSearchOptions, skillsActive } = deps;
 
   return {
     name: "memory_add",
@@ -42,6 +42,7 @@ export function createMemoryAddTool(deps: ToolDeps) {
         }
 
         const uid = resolveUserId({ agentId: p.agentId, userId: p.userId });
+        const agentId = resolveAgentId({ agentId: p.agentId });
         const runId = !(p.longTerm ?? true) && currentSessionId ? currentSessionId : undefined;
 
         if (skillsActive) {
@@ -61,6 +62,7 @@ export function createMemoryAddTool(deps: ToolDeps) {
           const addOpts: AddOptions = {
             user_id: uid, source: "OPENCLAW", infer: false,
             deduced_memories: allFacts, metadata: parsedMetadata ?? {},
+            ...(agentId && { agent_id: agentId }),
             ...(expirationDate && { expiration_date: expirationDate }),
             ...(isImmutable && { immutable: true }),
           };
@@ -82,11 +84,13 @@ export function createMemoryAddTool(deps: ToolDeps) {
         }
 
         const combinedText = allFacts.join("\n");
-        const dedupOpts = buildSearchOptions(uid, 3);
+        const dedupOpts = agentId
+          ? buildSearchOptions(uid, 3, undefined, undefined, agentId)
+          : buildSearchOptions(uid, 3);
         dedupOpts.threshold = 0.85;
         await provider.search(combinedText.slice(0, 200), dedupOpts);
 
-        const result = await provider.add([{ role: "user", content: combinedText }], buildAddOptions(uid, runId, currentSessionId));
+        const result = await provider.add([{ role: "user", content: combinedText }], buildAddOptions(uid, runId, currentSessionId, agentId));
         const added = result.results?.filter((r) => r.event === "ADD") ?? [];
         const updated = result.results?.filter((r) => r.event === "UPDATE") ?? [];
         const summary = [];

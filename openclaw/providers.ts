@@ -23,6 +23,7 @@ function normalizeMemoryItem(raw: any): MemoryItem {
     memory: raw.memory ?? raw.text ?? raw.content ?? "",
     // Handle both platform (user_id, created_at) and OSS (userId, createdAt) field names
     user_id: raw.user_id ?? raw.userId,
+    agent_id: raw.agent_id ?? raw.agentId,
     score: raw.score,
     categories: raw.categories,
     metadata: raw.metadata,
@@ -111,6 +112,7 @@ class PlatformProvider implements Mem0Provider {
   ): Promise<AddResult> {
     await this.ensureClient();
     const opts: Record<string, unknown> = { user_id: options.user_id };
+    if (options.agent_id) opts.agent_id = options.agent_id;
     if (options.run_id) opts.run_id = options.run_id;
     if (options.custom_instructions)
       opts.custom_instructions = options.custom_instructions;
@@ -135,6 +137,7 @@ class PlatformProvider implements Mem0Provider {
     await this.ensureClient();
     // Base filters: always scope by user_id, optionally by run_id
     const baseFilters: Record<string, unknown> = { user_id: options.user_id };
+    if (options.agent_id) baseFilters.agent_id = options.agent_id;
     if (options.run_id) baseFilters.run_id = options.run_id;
 
     // Merge agent-provided filters (created_at ranges, metadata, etc.)
@@ -169,6 +172,7 @@ class PlatformProvider implements Mem0Provider {
   async getAll(options: ListOptions): Promise<MemoryItem[]> {
     await this.ensureClient();
     const opts: Record<string, unknown> = { user_id: options.user_id };
+    if (options.agent_id) opts.agent_id = options.agent_id;
     if (options.run_id) opts.run_id = options.run_id;
     if (options.page_size != null) opts.page_size = options.page_size;
     if (options.source) opts.source = options.source;
@@ -191,9 +195,11 @@ class PlatformProvider implements Mem0Provider {
     await this.client.delete(memoryId);
   }
 
-  async deleteAll(userId: string): Promise<void> {
+  async deleteAll(userId: string, agentId?: string): Promise<void> {
     await this.ensureClient();
-    await this.client.deleteAll({ user_id: userId });
+    const opts: Record<string, unknown> = { user_id: userId };
+    if (agentId) opts.agent_id = agentId;
+    await this.client.deleteAll(opts);
   }
 
   async history(
@@ -300,6 +306,7 @@ class OSSProvider implements Mem0Provider {
     // OSS SDK uses camelCase: userId/runId, not user_id/run_id
     const addOpts: Record<string, unknown> = { userId: options.user_id };
     if (options.run_id) addOpts.runId = options.run_id;
+    if (options.agent_id) addOpts.agentId = options.agent_id;
     if (options.source) addOpts.source = options.source;
     // Agentic harness: direct storage bypass
     if (options.infer !== undefined) addOpts.infer = options.infer;
@@ -327,6 +334,7 @@ class OSSProvider implements Mem0Provider {
     await this.ensureMemory();
     // OSS SDK uses camelCase: userId/runId, not user_id/run_id
     const opts: Record<string, unknown> = { userId: options.user_id };
+    if (options.agent_id) opts.agentId = options.agent_id;
     if (options.run_id) opts.runId = options.run_id;
     if (options.limit != null) opts.limit = options.limit;
     else if (options.top_k != null) opts.limit = options.top_k;
@@ -359,6 +367,7 @@ class OSSProvider implements Mem0Provider {
     await this.ensureMemory();
     // OSS SDK uses camelCase: userId/runId, not user_id/run_id
     const getAllOpts: Record<string, unknown> = { userId: options.user_id };
+    if (options.agent_id) getAllOpts.agentId = options.agent_id;
     if (options.run_id) getAllOpts.runId = options.run_id;
     if (options.source) getAllOpts.source = options.source;
     const results = await this.memory.getAll(getAllOpts);
@@ -378,7 +387,7 @@ class OSSProvider implements Mem0Provider {
     await this.memory.delete(memoryId);
   }
 
-  async deleteAll(userId: string): Promise<void> {
+  async deleteAll(userId: string, _agentId?: string): Promise<void> {
     await this.ensureMemory();
     await this.memory.deleteAll({ userId });
   }
@@ -444,6 +453,7 @@ export function providerToBackend(
         msgs as Array<{ role: string; content: string }>,
         {
           user_id: opts.userId ?? userId,
+          ...(opts.agentId && { agent_id: opts.agentId }),
           ...(opts.runId && { run_id: opts.runId }),
           ...(opts.metadata && { metadata: opts.metadata }),
           ...(opts.immutable && { immutable: true }),
@@ -458,6 +468,7 @@ export function providerToBackend(
     async search(query, opts = {}) {
       const results = await provider.search(query, {
         user_id: opts.userId ?? userId,
+        ...(opts.agentId && { agent_id: opts.agentId }),
         top_k: opts.topK,
         threshold: opts.threshold,
         keyword_search: opts.keyword,
@@ -475,6 +486,7 @@ export function providerToBackend(
     async listMemories(opts = {}) {
       const items = await provider.getAll({
         user_id: opts.userId ?? userId,
+        ...(opts.agentId && { agent_id: opts.agentId }),
         page_size: opts.pageSize,
       });
       return items as unknown as Record<string, unknown>[];
@@ -493,7 +505,11 @@ export function providerToBackend(
 
     async delete(memoryId, opts = {}) {
       if (opts.all) {
-        await provider.deleteAll(opts.userId ?? userId);
+        if (opts.agentId) {
+          await provider.deleteAll(opts.userId ?? userId, opts.agentId);
+        } else {
+          await provider.deleteAll(opts.userId ?? userId);
+        }
         return { deleted: "all" };
       }
       if (memoryId) {
