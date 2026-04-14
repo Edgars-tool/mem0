@@ -6,6 +6,7 @@
 
 ## 前置條件
 
+- Node.js **18+**
 - pnpm (`npm install -g pnpm`) — 僅用於開發
 
 ## 安裝
