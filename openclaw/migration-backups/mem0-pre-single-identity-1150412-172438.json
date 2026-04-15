@@ -1,0 +1,847 @@
+﻿{
+    "exportedAt":  "2026-04-12T17:24:40.7490518+08:00",
+    "canonicalUserId":  "edgar",
+    "canonicalAgentId":  "agent",
+    "legacyItems":  [
+                        {
+                            "id":  "2cdba5f2-9f9c-43cd-8b67-fd82600efbdd",
+                            "memory":  "Please remember this as a durable collaboration rule with no expiration: whenever work involves passwords, å¯ç¢¼, tokens, keys, API keys, or other sensitive credentials, first search D:\\\\01_projects_staging\\\\é¾è¦å°æ¡\\\\Edgars_secret before asking Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "kind":  "durable_collaboration_rule",
+                                             "source":  "codex",
+                                             "no_expiry":  "True",
+                                             "topic":  "credential_lookup_order"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-12T01:52:06-07:00",
+                            "updated_at":  "2026-04-12T01:52:40-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  12,
+                                                          "hour":  8,
+                                                          "minute":  52,
+                                                          "day_of_week":  "sunday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  102,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "384d8abb-64a2-4418-a65a-7fdb1af9f05c",
+                            "memory":  "Channel fast agent is enabled for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-11T09:20:39-07:00",
+                            "updated_at":  "2026-04-11T09:21:13-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  16,
+                                                          "minute":  20,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "4eecfd2b-982a-4ea7-bc9e-8e68d00cf144",
+                            "memory":  "Edgar wants exactly one foreground agent window named é¾è¦. All other agents should run as background processors rather than separate user-facing windows.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "decision",
+                                             "canonicalFrontAgent":  "lobster",
+                                             "backgroundOnlyAgents":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-11T01:01:50-07:00",
+                            "updated_at":  "2026-04-11T01:01:54-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  8,
+                                                          "minute":  1,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "79fd2415-b991-4723-99b8-446e788871dd",
+                            "memory":  "Edgar requires all tools and agents to converge on a single canonical user_id: edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "identity",
+                                             "canonicalUserId":  "edgar",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:47:20-07:00",
+                            "updated_at":  "2026-04-10T23:47:22-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  47,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "7b103154-d419-43c1-8791-fb0d149ea524",
+                            "memory":  "æµ©å is the primary OpenClaw agent for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True",
+                                             "displayName":  "æµ©å"
+                                         },
+                            "categories":  null,
+                            "created_at":  "2026-04-10T23:41:39-07:00",
+                            "updated_at":  "2026-04-10T23:41:41-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  41,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "a8b216a7-3694-43ee-816c-f56467dceceb",
+                            "memory":  "Mini agent is enabled for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:37:51-07:00",
+                            "updated_at":  "2026-04-10T23:37:55-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  37,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "67f30cc2-f4b5-43f9-a268-b8d51d9d7eef",
+                            "memory":  "Perplexity Computer agent is enabled for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:37:50-07:00",
+                            "updated_at":  "2026-04-10T23:37:56-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  37,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "14c37e94-d8cf-4988-831d-b3155aa592ee",
+                            "memory":  "Ollama agent is enabled for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:37:49-07:00",
+                            "updated_at":  "2026-04-10T23:37:53-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  37,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "122c6e69-9ed5-41db-b7bd-d854d5a7fe7d",
+                            "memory":  "GitHub Copilot agent is enabled for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  null,
+                            "created_at":  "2026-04-10T23:37:47-07:00",
+                            "updated_at":  "2026-04-10T23:37:50-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  37,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "479b89b8-9c70-4d89-8b21-da3c6d570adb",
+                            "memory":  "Claude Code agent is enabled for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:37:46-07:00",
+                            "updated_at":  "2026-04-10T23:37:51-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  37,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "f5e7dcb9-5579-444f-b0d6-ef42776a42d5",
+                            "memory":  "Claude Desktop agent is enabled for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:37:45-07:00",
+                            "updated_at":  "2026-04-10T23:37:48-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  37,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "1ebe3357-26fc-4615-889a-87a9821830f1",
+                            "memory":  "OpenClaw Mem0 lab agent is enabled for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:33:55-07:00",
+                            "updated_at":  "2026-04-10T23:33:58-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  33,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "f26c3d1d-18a2-49e7-b9d9-d845db403f0d",
+                            "memory":  "OpenClaw LINE fast agent is enabled for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:33:54-07:00",
+                            "updated_at":  "2026-04-10T23:33:57-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  33,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "a4edb00a-0667-4682-8839-5e856c41e643",
+                            "memory":  "OpenClaw main agent is enabled for Edgar.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "configuration",
+                                             "bootstrap":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:33:53-07:00",
+                            "updated_at":  "2026-04-10T23:33:58-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  33,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "227b275c-e3fc-42f1-9401-7bd298dae77d",
+                            "memory":  "Edgar uses verification token codex-agent-direct-1775888918854 for Codex agent scope testing.",
+                            "user_id":  "edgar",
+                            "metadata":  {
+                                             "category":  "technical",
+                                             "verification":  "True"
+                                         },
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:28:40-07:00",
+                            "updated_at":  "2026-04-10T23:28:44-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  28,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "fa5da57c-da6a-4d3a-81b5-77322b40f341",
+                            "memory":  "Codex agent scope verification passed on Edgar\u0027s Windows OpenClaw environment on 2026-04-11",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:28:20-07:00",
+                            "updated_at":  "2026-04-10T23:28:22-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  28,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "4b8382c1-b139-4908-8480-58d8a48411e3",
+                            "memory":  "User requests the assistant to remember a verification marker.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-10T23:27:22-07:00",
+                            "updated_at":  "2026-04-10T23:27:24-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  6,
+                                                          "minute":  27,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "4a0fcc91-2592-4ed3-9d38-85d33435cfd2",
+                            "memory":  "User completed six learning project documents between Aprilâ¯4 andâ¯5,â¯2026, covering LYT framework, Obsidian atomic notes, API translation examples, MCP N+M architecture, practice steps, and GPS stack usage, and prefers plain language explanations in Traditional Chinese because they lack an engineering background.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "projects",
+                                               "preferences",
+                                               "technical"
+                                           ],
+                            "created_at":  "2026-04-05T00:06:05-07:00",
+                            "updated_at":  "2026-04-05T00:07:55-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  5,
+                                                          "hour":  7,
+                                                          "minute":  5,
+                                                          "day_of_week":  "sunday",
+                                                          "week_of_year":  14,
+                                                          "day_of_year":  95,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "19510d44-91ae-496c-a1df-aea806f93141",
+                            "memory":  "No action items were generated during the heartbeat consolidation check.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "work",
+                                               "technical"
+                                           ],
+                            "created_at":  "2026-03-29T23:12:32-07:00",
+                            "updated_at":  "2026-03-29T23:13:22-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  3,
+                                                          "day":  30,
+                                                          "hour":  6,
+                                                          "minute":  12,
+                                                          "day_of_week":  "monday",
+                                                          "week_of_year":  14,
+                                                          "day_of_year":  89,
+                                                          "quarter":  1,
+                                                          "is_weekend":  false
+                                                      }
+                        },
+                        {
+                            "id":  "16837ec7-01b2-4871-98cf-f6e8ef5ef339",
+                            "memory":  "Google Tasks API permission issue remains unresolved but is low priority.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "technical",
+                                               "decisions"
+                                           ],
+                            "created_at":  "2026-03-29T23:12:31-07:00",
+                            "updated_at":  "2026-03-29T23:13:20-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  3,
+                                                          "day":  30,
+                                                          "hour":  6,
+                                                          "minute":  12,
+                                                          "day_of_week":  "monday",
+                                                          "week_of_year":  14,
+                                                          "day_of_year":  89,
+                                                          "quarter":  1,
+                                                          "is_weekend":  false
+                                                      }
+                        },
+                        {
+                            "id":  "d4f3edf3-dbb7-426f-8439-534f15e0eaef",
+                            "memory":  "Telegram token was resolved on 2026-03-26.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "technical"
+                                           ],
+                            "created_at":  "2026-03-29T23:12:30-07:00",
+                            "updated_at":  "2026-03-29T23:13:19-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  3,
+                                                          "day":  30,
+                                                          "hour":  6,
+                                                          "minute":  12,
+                                                          "day_of_week":  "monday",
+                                                          "week_of_year":  14,
+                                                          "day_of_year":  89,
+                                                          "quarter":  1,
+                                                          "is_weekend":  false
+                                                      }
+                        },
+                        {
+                            "id":  "610cd2b7-c17e-42e5-b0b0-640961c24cb6",
+                            "memory":  "LINE token was resolved on 2026-03-26.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "technical"
+                                           ],
+                            "created_at":  "2026-03-29T23:12:29-07:00",
+                            "updated_at":  "2026-03-29T23:13:18-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  3,
+                                                          "day":  30,
+                                                          "hour":  6,
+                                                          "minute":  12,
+                                                          "day_of_week":  "monday",
+                                                          "week_of_year":  14,
+                                                          "day_of_year":  89,
+                                                          "quarter":  1,
+                                                          "is_weekend":  false
+                                                      }
+                        },
+                        {
+                            "id":  "343edf8f-a2ac-4cd9-886a-421d2ad2abad",
+                            "memory":  "Notion integration is unavailable because gws does not support Notion.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "technical"
+                                           ],
+                            "created_at":  "2026-03-29T23:12:28-07:00",
+                            "updated_at":  "2026-03-29T23:13:16-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  3,
+                                                          "day":  30,
+                                                          "hour":  6,
+                                                          "minute":  12,
+                                                          "day_of_week":  "monday",
+                                                          "week_of_year":  14,
+                                                          "day_of_year":  89,
+                                                          "quarter":  1,
+                                                          "is_weekend":  false
+                                                      }
+                        },
+                        {
+                            "id":  "5be79127-6cf6-4521-9a09-93a4ed074175",
+                            "memory":  "Memory search is disabled.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "technical"
+                                           ],
+                            "created_at":  "2026-03-29T23:12:27-07:00",
+                            "updated_at":  "2026-03-29T23:13:16-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  3,
+                                                          "day":  30,
+                                                          "hour":  6,
+                                                          "minute":  12,
+                                                          "day_of_week":  "monday",
+                                                          "week_of_year":  14,
+                                                          "day_of_year":  89,
+                                                          "quarter":  1,
+                                                          "is_weekend":  false
+                                                      }
+                        },
+                        {
+                            "id":  "67daaf2b-af64-404b-bdc5-c46b787b814f",
+                            "memory":  "User provided the current time as 2026-03-30 14:10+08:00.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  null,
+                            "created_at":  "2026-03-29T23:12:26-07:00",
+                            "updated_at":  "2026-03-29T23:13:16-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  3,
+                                                          "day":  30,
+                                                          "hour":  6,
+                                                          "minute":  12,
+                                                          "day_of_week":  "monday",
+                                                          "week_of_year":  14,
+                                                          "day_of_year":  89,
+                                                          "quarter":  1,
+                                                          "is_weekend":  false
+                                                      }
+                        },
+                        {
+                            "id":  "63d3e0be-ce61-4f32-8da8-7f418468a9c0",
+                            "memory":  "Memory layer is healthy, containing only test data from 2026-03-29.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "technical"
+                                           ],
+                            "created_at":  "2026-03-29T23:12:26-07:00",
+                            "updated_at":  "2026-03-29T23:13:16-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  3,
+                                                          "day":  30,
+                                                          "hour":  6,
+                                                          "minute":  12,
+                                                          "day_of_week":  "monday",
+                                                          "week_of_year":  14,
+                                                          "day_of_year":  89,
+                                                          "quarter":  1,
+                                                          "is_weekend":  false
+                                                      }
+                        },
+                        {
+                            "id":  "9786a7ee-1fb7-46c1-947c-c0d145cd869a",
+                            "memory":  "Edgar, located in Taoyuan, Taiwan, manually verified the mem0 write function on 2026-03-29 and recorded it as test data.",
+                            "user_id":  "edgar",
+                            "metadata":  null,
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-03-29T01:18:52-07:00",
+                            "updated_at":  "2026-03-29T01:18:55-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  3,
+                                                          "day":  29,
+                                                          "hour":  8,
+                                                          "minute":  18,
+                                                          "day_of_week":  "sunday",
+                                                          "week_of_year":  13,
+                                                          "day_of_year":  88,
+                                                          "quarter":  1,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "2971b606-9319-4580-940e-249fb77c5009",
+                            "memory":  "The user prefers records and notes to be written as daily notes.",
+                            "user_id":  "mem0-mcp",
+                            "metadata":  {
+                                             "type":  "user_preference"
+                                         },
+                            "categories":  null,
+                            "created_at":  "2026-04-11T20:38:49-07:00",
+                            "updated_at":  "2026-04-11T20:39:38-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  12,
+                                                          "hour":  3,
+                                                          "minute":  38,
+                                                          "day_of_week":  "sunday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  102,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "46255ffd-aac1-4de5-8396-42a0b4267105",
+                            "memory":  "Winget was confirmed to have no newer cloudflared package than 2025.8.1 during the maintenance sweep on 2026-04-11.",
+                            "user_id":  "mem0-mcp",
+                            "metadata":  null,
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-11T01:12:41-07:00",
+                            "updated_at":  "2026-04-11T01:12:45-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  8,
+                                                          "minute":  12,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "6f746331-4292-4f4d-a8b6-a68238c9f812",
+                            "memory":  "Backup snapshots were created under D:\\Backups during the maintenance sweep on 2026-04-11.",
+                            "user_id":  "mem0-mcp",
+                            "metadata":  null,
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-11T01:12:41-07:00",
+                            "updated_at":  "2026-04-11T01:12:45-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  8,
+                                                          "minute":  12,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "b9227642-5478-4ac5-b89e-7aa840db06c9",
+                            "memory":  "OpenClaw gateway secrets were moved from gateway.cmd into User environment variables with HKCU fallback loading during the rebuild maintenance sweep on 2026-04-11.",
+                            "user_id":  "mem0-mcp",
+                            "metadata":  null,
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-11T01:12:41-07:00",
+                            "updated_at":  "2026-04-11T01:12:43-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  8,
+                                                          "minute":  12,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "bb06b693-8500-4455-8d0b-106c93259411",
+                            "memory":  "Rebuild backup scripts were created in rebuild/ops/ during the maintenance sweep on 2026-04-11.",
+                            "user_id":  "mem0-mcp",
+                            "metadata":  null,
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-11T01:12:41-07:00",
+                            "updated_at":  "2026-04-11T01:12:43-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  8,
+                                                          "minute":  12,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        },
+                        {
+                            "id":  "3325319b-b216-4322-9e3b-bd756fb458df",
+                            "memory":  "On 2026-04-11, rebuild startup verification found that mcp-handcraft launchers still used the old Windows10-JS Python path and that rebuild/ops/start-core-services.ps1 needed to call cmd.exe /c run_http.cmd; after fixing both, the official startup chain could bring up port 8765 again and POST http://127.0.0.1:8765/mcp returned 202.",
+                            "user_id":  "mem0-mcp",
+                            "metadata":  null,
+                            "categories":  [
+                                               "æ³¨æäºé \u0085"
+                                           ],
+                            "created_at":  "2026-04-11T01:05:34-07:00",
+                            "updated_at":  "2026-04-11T01:05:36-07:00",
+                            "expiration_date":  null,
+                            "structured_attributes":  {
+                                                          "year":  2026,
+                                                          "month":  4,
+                                                          "day":  11,
+                                                          "hour":  8,
+                                                          "minute":  5,
+                                                          "day_of_week":  "saturday",
+                                                          "week_of_year":  15,
+                                                          "day_of_year":  101,
+                                                          "quarter":  2,
+                                                          "is_weekend":  true
+                                                      }
+                        }
+                    ]
+}

@@ -7,11 +7,9 @@
  * Features:
  * - 7 core tools: memory_search, memory_add, memory_get, memory_list,
  *   memory_update, memory_delete, memory_history
- * - Short-term (session-scoped) and long-term (user-scoped) memory
- * - Auto-recall: injects relevant memories (both scopes) before each agent turn
- * - Auto-capture: stores key facts scoped to the current session after each agent turn
- * - Per-agent isolation: multi-agent setups write/read from separate userId namespaces
- *   automatically via sessionKey routing (zero breaking changes for single-agent setups)
+ * - Shared long-term memory under a single canonical user_id + agent_id
+ * - Auto-recall: inject relevant memories before each agent turn
+ * - Auto-capture: store key facts after each agent turn
  * - CLI: openclaw mem0 search, openclaw mem0 status
  * - Dual mode: platform or open-source (self-hosted)
  */
@@ -30,7 +28,9 @@ import type { FileConfig } from "./config.ts";
 import { filterMessagesForExtraction } from "./filtering.ts";
 import {
   effectiveUserId,
+  effectiveAgentId,
   agentUserId,
+  resolveAgentId,
   resolveUserId,
   isNonInteractiveTrigger,
   isSubagentSession,
@@ -64,7 +64,9 @@ import { captureEvent } from "./telemetry.ts";
 export {
   extractAgentId,
   effectiveUserId,
+  effectiveAgentId,
   agentUserId,
+  resolveAgentId,
   resolveUserId,
   isNonInteractiveTrigger,
   isSubagentSession,
@@ -163,13 +165,17 @@ const memoryPlugin = {
     let pluginStateDir: string | undefined;
 
     // ========================================================================
-    // Per-agent isolation helpers (thin wrappers around exported functions)
+    // Canonical identity helpers (single shared Mem0 namespace)
     // ========================================================================
     const _effectiveUserId = (sessionKey?: string) =>
       effectiveUserId(cfg.userId, sessionKey);
+    const _effectiveAgentId = (sessionKey?: string) =>
+      effectiveAgentId(sessionKey);
     const _agentUserId = (id: string) => agentUserId(cfg.userId, id);
     const _resolveUserId = (opts: { agentId?: string; userId?: string }) =>
       resolveUserId(cfg.userId, opts, currentSessionId);
+    const _resolveAgentId = (opts: { agentId?: string }) =>
+      resolveAgentId(opts, currentSessionId);
 
     const skillsActive = isSkillsMode(cfg.skills);
     telemetryCtx.skillsActive = skillsActive;
@@ -188,11 +194,14 @@ const memoryPlugin = {
       userIdOverride?: string,
       runId?: string,
       sessionKey?: string,
+      agentIdOverride?: string,
     ): AddOptions {
       const opts: AddOptions = {
         user_id: userIdOverride || _effectiveUserId(sessionKey),
         source: "OPENCLAW",
       };
+      const agentId = agentIdOverride || _effectiveAgentId(sessionKey);
+      if (agentId) opts.agent_id = agentId;
       if (runId) opts.run_id = runId;
       if (cfg.mode === "platform") {
         opts.enable_graph = cfg.enableGraph;
@@ -207,6 +216,7 @@ const memoryPlugin = {
       limit?: number,
       runId?: string,
       sessionKey?: string,
+      agentIdOverride?: string,
     ): SearchOptions {
       const recallCfg = cfg.skills?.recall;
       const opts: SearchOptions = {
@@ -218,6 +228,8 @@ const memoryPlugin = {
         reranking: recallCfg?.rerank !== false,
         source: "OPENCLAW",
       };
+      const agentId = agentIdOverride || _effectiveAgentId(sessionKey);
+      if (agentId) opts.agent_id = agentId;
       if (recallCfg?.filterMemories) opts.filter_memories = true;
       if (runId) opts.run_id = runId;
       return opts;
@@ -232,7 +244,9 @@ const memoryPlugin = {
       provider,
       cfg,
       resolveUserId: _resolveUserId,
+      resolveAgentId: _resolveAgentId,
       effectiveUserId: _effectiveUserId,
+      effectiveAgentId: _effectiveAgentId,
       agentUserId: _agentUserId,
       buildAddOptions,
       buildSearchOptions,
@@ -412,6 +426,7 @@ function registerHooks(
             userId,
             cfg.skills ?? {},
             sessionIdForRecall,
+            effectiveAgentId(sessionId),
           );
 
           api.logger.info(

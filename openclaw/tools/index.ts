@@ -14,10 +14,12 @@ export interface ToolDeps {
   provider: Mem0Provider;
   cfg: Mem0Config;
   resolveUserId: (opts: { agentId?: string; userId?: string }) => string;
+  resolveAgentId: (opts: { agentId?: string }) => string | undefined;
   effectiveUserId: (sessionKey?: string) => string;
+  effectiveAgentId: (sessionKey?: string) => string | undefined;
   agentUserId: (id: string) => string;
-  buildAddOptions: (userIdOverride?: string, runId?: string, sessionKey?: string) => AddOptions;
-  buildSearchOptions: (userIdOverride?: string, limit?: number, runId?: string, sessionKey?: string) => SearchOptions;
+  buildAddOptions: (userIdOverride?: string, runId?: string, sessionKey?: string, agentIdOverride?: string) => AddOptions;
+  buildSearchOptions: (userIdOverride?: string, limit?: number, runId?: string, sessionKey?: string, agentIdOverride?: string) => SearchOptions;
   getCurrentSessionId: () => string | undefined;
   skillsActive: boolean;
   captureToolEvent: (toolName: string, properties: Record<string, unknown>) => void;

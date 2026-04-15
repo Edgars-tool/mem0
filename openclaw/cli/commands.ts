@@ -609,11 +609,10 @@ export function registerCliCommands(
               const limit = parseInt(opts.topK, 10);
               const scope = opts.scope as "session" | "long-term" | "all";
               const currentSessionId = getCurrentSessionId();
-              const uid = opts.userId
-                ? opts.userId
-                : opts.agentId
-                  ? agentUserId(opts.agentId)
-                  : effectiveUserId(currentSessionId);
+              const uid = opts.userId || effectiveUserId(currentSessionId);
+              const resolvedAgentId = opts.agentId
+                ? agentUserId(opts.agentId)
+                : undefined;
 
               // CLI search: no source filter so users find ALL memories
               const cliSearchOpts = (
@@ -622,6 +621,7 @@ export function registerCliCommands(
                 runId?: string,
               ): SearchOptions => {
                 const base = buildSearchOptions(userIdOverride, lim, runId);
+                if (resolvedAgentId) base.agent_id = resolvedAgentId;
                 delete (base as any).source;
                 base.threshold = 0.3;
                 return base;
@@ -712,14 +712,13 @@ export function registerCliCommands(
             opts: { userId?: string; agentId?: string },
           ) => {
             try {
-              const uid = opts.userId
-                ? opts.userId
-                : opts.agentId
-                  ? agentUserId(opts.agentId)
-                  : effectiveUserId(getCurrentSessionId());
+              const uid = opts.userId || effectiveUserId(getCurrentSessionId());
+              const resolvedAgentId = opts.agentId
+                ? agentUserId(opts.agentId)
+                : undefined;
               const result = await provider.add(
                 [{ role: "user", content: text }],
-                { user_id: uid },
+                { user_id: uid, ...(resolvedAgentId && { agent_id: resolvedAgentId }) },
               );
               const count = result.results?.length ?? 0;
               if (count > 0) {
@@ -786,14 +785,14 @@ export function registerCliCommands(
             topK: string;
           }) => {
             try {
-              const uid = opts.userId
-                ? opts.userId
-                : opts.agentId
-                  ? agentUserId(opts.agentId)
-                  : cfg.userId;
+              const uid = opts.userId || cfg.userId;
+              const resolvedAgentId = opts.agentId
+                ? agentUserId(opts.agentId)
+                : undefined;
               const limit = parseInt(opts.topK, 10);
               const memories = await provider.getAll({
                 user_id: uid,
+                ...(resolvedAgentId && { agent_id: resolvedAgentId }),
                 page_size: limit,
                 source: "OPENCLAW",
               });
@@ -860,15 +859,14 @@ export function registerCliCommands(
           ) => {
             try {
               if (opts.all) {
-                const uid = opts.userId
-                  ? opts.userId
-                  : opts.agentId
-                    ? agentUserId(opts.agentId)
-                    : cfg.userId;
+                const uid = opts.userId || cfg.userId;
+                const resolvedAgentId = opts.agentId
+                  ? agentUserId(opts.agentId)
+                  : undefined;
 
                 if (!opts.confirm && process.stdin.isTTY) {
                   const answer = await promptInput(
-                    `  Delete ALL memories for user "${uid}"? This cannot be undone. (yes/N): `,
+                    `  Delete ALL memories for user "${uid}"${resolvedAgentId ? ` and agent "${resolvedAgentId}"` : ""}? This cannot be undone. (yes/N): `,
                   );
                   if (answer.toLowerCase() !== "yes") {
                     console.log("Cancelled.");
@@ -881,8 +879,12 @@ export function registerCliCommands(
                   return;
                 }
 
-                await provider.deleteAll(uid);
-                console.log(`All memories deleted for user "${uid}".`);
+                if (resolvedAgentId) {
+                  await provider.deleteAll(uid, resolvedAgentId);
+                } else {
+                  await provider.deleteAll(uid);
+                }
+                console.log(`All memories deleted for user "${uid}"${resolvedAgentId ? ` (agent "${resolvedAgentId}")` : ""}.`);
                 return;
               }
 

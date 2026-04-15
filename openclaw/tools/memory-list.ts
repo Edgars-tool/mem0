@@ -3,7 +3,7 @@ import type { MemoryItem } from "../types.ts";
 import type { ToolDeps } from "./index.ts";
 
 export function createMemoryListTool(deps: ToolDeps) {
-  const { provider, resolveUserId, getCurrentSessionId } = deps;
+  const { provider, resolveUserId, resolveAgentId, getCurrentSessionId } = deps;
 
   return {
     name: "memory_list",
@@ -28,16 +28,17 @@ export function createMemoryListTool(deps: ToolDeps) {
       try {
         let memories: MemoryItem[] = [];
         const uid = resolveUserId({ agentId, userId });
+        const resolvedAgentId = resolveAgentId({ agentId });
         const currentSessionId = getCurrentSessionId();
 
         if (scope === "session") {
-          if (currentSessionId) memories = await provider.getAll({ user_id: uid, run_id: currentSessionId, source: "OPENCLAW" });
+          if (currentSessionId) memories = await provider.getAll({ user_id: uid, agent_id: resolvedAgentId, run_id: currentSessionId, source: "OPENCLAW" });
         } else if (scope === "long-term") {
-          memories = await provider.getAll({ user_id: uid, source: "OPENCLAW" });
+          memories = await provider.getAll({ user_id: uid, agent_id: resolvedAgentId, source: "OPENCLAW" });
         } else {
-          const longTerm = await provider.getAll({ user_id: uid, source: "OPENCLAW" });
+          const longTerm = await provider.getAll({ user_id: uid, agent_id: resolvedAgentId, source: "OPENCLAW" });
           let session: MemoryItem[] = [];
-          if (currentSessionId) session = await provider.getAll({ user_id: uid, run_id: currentSessionId, source: "OPENCLAW" });
+          if (currentSessionId) session = await provider.getAll({ user_id: uid, agent_id: resolvedAgentId, run_id: currentSessionId, source: "OPENCLAW" });
           const seen = new Set(longTerm.map((r) => r.id));
           memories = [...longTerm, ...session.filter((r) => !seen.has(r.id))];
         }
