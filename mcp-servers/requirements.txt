@@ -1,0 +1,3 @@
+# Mem0 MCP Servers - Dependencies
+mem0ai>=1.0.0
+mcp>=1.0.0
